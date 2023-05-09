@@ -1,6 +1,7 @@
 package com.vrx.user.service.client;
 
 import com.vrx.user.service.entity.Rating;
+import com.vrx.user.service.external.service.RatingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,15 @@ public class RatingServiceClient {
 
     private final Logger logger = LoggerFactory.getLogger(RatingServiceClient.class);
 
-    String URI = "http://RATING-SERVICE/ratings/users/";
+    @Autowired
+    private RatingService ratingService;
+
+//    String URI = "http://RATING-SERVICE/ratings/users/";
 
     public List<Rating> getRatingForUser(String userId) {
-        List<Rating> forObject = Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(URI + userId, Rating[].class)));
+       /* List<Rating> forObject = Arrays.asList(Objects.requireNonNull(restTemplate.getForObject(URI + userId, Rating[].class)));
         logger.info("{}", forObject);
-        logger.info("{}", forObject.toString());
-        return (List<Rating>) forObject;
+        logger.info("{}", forObject.toString());*/
+        return ratingService.getRatingForUser(userId);
     }
 }
